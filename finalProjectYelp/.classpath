@@ -104,9 +104,8 @@
   <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_COMPILER_CONTAINER"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.4.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.4.jar"/>
-  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.7.2.jar"/>
-  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/bundles/jackson-annotations-2.7.0.jar"/>
-  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.7.2.jar"/>
+  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.4.4.jar"/>
+  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.4.4.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.sun.jersey/jersey-core/bundles/jersey-core-1.9.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/org.apache.mesos/mesos/jars/mesos-0.21.1-shaded-protobuf.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.clearspring.analytics/stream/jars/stream-2.7.0.jar"/>
@@ -115,6 +114,7 @@
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/io.dropwizard.metrics/metrics-json/bundles/metrics-json-3.1.2.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/io.dropwizard.metrics/metrics-graphite/bundles/metrics-graphite-3.1.2.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.module/jackson-module-scala_2.11/bundles/jackson-module-scala_2.11-2.4.4.jar"/>
+  <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/bundles/jackson-annotations-2.4.4.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/org.apache.ivy/ivy/jars/ivy-2.4.0.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/oro/oro/jars/oro-2.0.8.jar"/>
   <classpathentry kind="lib" path="/Users/YuanHank/.ivy2/cache/org.tachyonproject/tachyon-client/jars/tachyon-client-0.7.1.jar"/>
