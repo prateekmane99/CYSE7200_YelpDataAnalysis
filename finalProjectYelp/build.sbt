@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 	"org.apache.spark" %% "spark-streaming" % "1.5.1",
 	"org.apache.spark" %% "spark-mllib" % "1.5.1",
 	"com.fasterxml.jackson.core"    % "jackson-core"          % "2.4.4",
-	"com.fasterxml.jackson.core"    % "jackson-databind"      % "2.4.4"
+	"com.fasterxml.jackson.core"    % "jackson-databind"      % "2.4.4",
 	
-	
+	"org.scalanlp" %% "english"  % "2015.1.25"
 )

@@ -4,7 +4,7 @@
 		module="finalprojectyelp_2.11"
 		revision="1.0.0-SNAPSHOT"
 		status="integration"
-		publication="20160329173317"
+		publication="20160331190909"
 	>
 		<description>
 		FinalProjectYelp
@@ -41,6 +41,7 @@
 		<dependency org="org.apache.spark" name="spark-mllib_2.11" rev="1.5.1" conf="compile->default(compile)"/>
 		<dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.4.4" conf="compile->default(compile)"/>
 		<dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.4.4" conf="compile->default(compile)"/>
+		<dependency org="org.scalanlp" name="english_2.11" rev="2015.1.25" conf="compile->default(compile)"/>
 		<override org="org.scala-lang" module="scala-library" matcher="exact" rev="2.11.7"/>
 		<override org="org.scala-lang" module="scala-compiler" matcher="exact" rev="2.11.7"/>
 		<override org="org.scala-lang" module="scala-reflect" matcher="exact" rev="2.11.7"/>
