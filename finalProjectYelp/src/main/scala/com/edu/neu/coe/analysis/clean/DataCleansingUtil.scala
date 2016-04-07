@@ -28,4 +28,6 @@ object DataCleansingUtil {
     cleanData.map { x => x.mkString.dropRight(22) } 
   }
   
+  def getSparkContext: SparkContext = sc
+  
 }

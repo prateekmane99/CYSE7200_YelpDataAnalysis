@@ -1,0 +1,42 @@
+val sentenceSplitter = MLSentenceSegmenter.bundled().get
+    val tokenizer = new epic.preprocess.TreebankTokenizer()
+    val tagger = epic.models.PosTagSelector.loadTagger("en").get // or another 2 letter code.
+    
+//    r.foreach { 
+//      x => val text = x.getString(2)
+      val sentences: IndexedSeq[IndexedSeq[String]] = sentenceSplitter("the quick brown fox jumps over the lazy dog").map(tokenizer).toIndexedSeq
+      for (sentence <- sentences) {
+        val tags = tagger.bestSequence(sentence)
+        println(tags.render)
+     }
+//    }
+    
+    
+//    val s = r.map { x => (Option(x.getString(0)), Option(x.getString(2))) }
+//    
+//    //transfer String in RDD[String] to several sentences
+//    val ss = s.map { 
+//      text => (text._1.getOrElse(),sentenceSplitter(text._2.getOrElse().toString()).map(tokenizer).toIndexedSeq)
+//    }
+//    val wordsBag:List[String] = List("food","hoagie","burger","patty", "ingredient", "service", "place","veggie", "wing", "area", "dining",
+//        "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak");
+//    
+//    val re = ss.map { x => (x._1,for(sx <- (x._2)) yield tagger.bestSequence(sx))  }
+//  
+//    var list = scala.collection.mutable.LinkedList[String]()
+//   
+//    var a = sc.accumulator(0L, "KKK");
+//    
+    re.foreach { 
+      sx => {
+        for(word <- wordsBag;x <- (sx._2)) {
+          for(i <- 0 to x.pairs.length-1) if(x.pairs(i)._2.toString().toLowerCase().contains(word)) {
+            for(pai <- x.pairs.find(p => p._1.toString().contains("JJ")))  list = list :+ (sx._1 + pai._2 + " " + word) 
+              a += 1;
+//              
+//          }
+//        }
+//        
+//      }
+//    }
+  }

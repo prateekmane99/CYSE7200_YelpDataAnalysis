@@ -19,8 +19,9 @@ libraryDependencies ++= Seq(
 	"org.apache.spark" %% "spark-core" % "1.5.1" % "provided",
 	"org.apache.spark" %% "spark-streaming" % "1.5.1",
 	"org.apache.spark" %% "spark-mllib" % "1.5.1",
-	"com.fasterxml.jackson.core"    % "jackson-core"          % "2.4.4",
-	"com.fasterxml.jackson.core"    % "jackson-databind"      % "2.4.4",
-	
-	"org.scalanlp" %% "english"  % "2015.1.25"
+
+	"edu.stanford.nlp" % "stanford-corenlp" % "3.5.2",
+  //	"edu.stanford.nlp" % "stanford-corenlp" % "3.5.2" classifier "models",
+  //	"edu.stanford.nlp" % "stanford-parser" % "3.4",
+  //	"edu.stanford.nlp" % "stanford-pos-tagger" % "3.4"
 )
