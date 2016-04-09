@@ -12,20 +12,76 @@ object YelpDataAnalysis {
 
   // start the main program
   def main(args: Array[String]): Unit = {
-
+     
+	        def distance(lat1: Double,  lon1: Double , lat2: Double, lon2: Double) : String = {
+	        val R = 6371; // km (change this constant to get miles)
+	              val dLat = (lat2-lat1) * Math.PI / 180;
+	              val dLon = (lon2-lon1) * Math.PI / 180;
+	              val a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+	                      Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+		                    Math.sin(dLon/2) * Math.sin(dLon/2);
+	              val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	              val d = R * c;
+	                if (d>1) return Math.round(d)+"km";
+	                else if (d<=1) return Math.round(d*1000)+"m";
+	              return d + "m";
+          
+	        } 
+        
+	   val wordsBag = List("food","hoagie","burger","patty", "ingredient", "service", "place","veggie", "wing", "area", "dining",
+        "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak");
+  
+	        
+	   for(abc <- wordsBag){
+	    val  a = "http://thesaurus.altervista.org/thesaurus/v1?word="+abc+"&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
+      val result = scala.io.Source.fromURL(a).mkString
+      import scala.util.parsing.json._
+     // println(result)
+	    val b = JSON.parseFull(result)
+	    b match {
+         case Some(e) => //println(e) // => Map(name -> Naoki, lang -> List(Java, Scala))
+          case None => println("Failed.")
+            }
+	   }
     
+	   case class CertFile(name: String, path: String, extension: String)
 
-//    for (aa <- a) yield {
-//      val sentences: IndexedSeq[IndexedSeq[String]] = sentenceSplitter(aa).map(tokenizer).toIndexedSeq
-//      for (sentence <- sentences) {
-//        val tags = tagger.bestSequence(sentence)
-//        println(a.indexOf(aa) + ": " + tags.render)
-        
-        
-        
-        
-        
-        
+case class Certificate(certType: String, certFile: CertFile)
+
+
+
+ import scala.util.parsing.json._
+ 
+   val json =
+    """{ "certificates": [{"type": "abc","file": {"name": "xyz","path":"/usr/local","extension": "csv"}} ,  {"type": "xyz","file": {"name": "xyz","path": "/usr/local","extension": "csv"}} , {"type": "nmo","file": {"name": "xyz","path": "/usr/local","extension": "csv"}}] }"""
+
+  val jsonValue = JSON.parseFull(json)
+
+ // val list = (jsonValue \ "certificates").as[List[Certificate]]
+  
+  import org.json4s._
+  import org.json4s.JsonDSL._
+  import org.json4s.jackson.JsonMethods._
+  
+   val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
+      val result = scala.io.Source.fromURL(a).mkString
+      print(result)
+	   print("\n")
+  val b = parse(result)
+  print("\n")
+	     
+  val c = b\"response"
+	    for(
+	      cc <- c.children){
+	      print(cc)
+	    }
+  
+    
+	  //  val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
+	   // val ids = a.map(_("Locations")("list").map(_("id"))).getOrElse(List())
+	   
+	   
+	        
 //        for(i <- 0 to tags.length-3){
 //          if(tags.pairs(i)._1.toString().startsWith("JJ") 
 //              && tags.pairs(i+1)._1.toString().startsWith("NN")){

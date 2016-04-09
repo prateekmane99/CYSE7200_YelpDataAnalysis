@@ -20,8 +20,10 @@ libraryDependencies ++= Seq(
 	"org.apache.spark" %% "spark-streaming" % "1.5.1",
 	"org.apache.spark" %% "spark-mllib" % "1.5.1",
 
+	"edu.stanford.nlp" % "stanford-corenlp" % "3.6.0",
 	"edu.stanford.nlp" % "stanford-corenlp" % "3.5.2",
   //	"edu.stanford.nlp" % "stanford-corenlp" % "3.5.2" classifier "models",
   //	"edu.stanford.nlp" % "stanford-parser" % "3.4",
   //	"edu.stanford.nlp" % "stanford-pos-tagger" % "3.4"
+  "com.kennycason" % "kumo" % "1.3"
 )
