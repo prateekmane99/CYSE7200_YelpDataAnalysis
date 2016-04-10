@@ -3,10 +3,11 @@ package com.edu.neu.coe.analysis.clean
 import com.edu.neu.coe.analysis.clean._
 import org.apache.spark.rdd.RDD
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import com.edu.neu.coe.configuration.Config
 
 object DataParsingUtil {
   val r = DataCleansingUtil.cleanData
-  val sc = DataCleansingUtil.getSparkContext
+  val sc = Config.getSparkContext()
   val mx = new MaxentTagger("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/Jars/Jars/Jars/english-bidirectional-distsim.tagger");
   
   val wordsBag = List("food","hoagie","burger","patty", "ingredient", "service", "place","veggie", "wing", "area", "dining",

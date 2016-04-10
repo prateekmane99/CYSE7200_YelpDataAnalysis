@@ -4,8 +4,7 @@ import org.apache.log4j.{ Logger }
 import org.apache.spark.{ SparkConf, SparkContext }
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.SQLContext
-
-case class person(business: String, address: String)
+import com.edu.neu.coe.configuration.Config
 
 object YelpDataAnalysis {
   //@transient lazy val logger = Logger.getLogger(getClass.getName)
@@ -13,30 +12,47 @@ object YelpDataAnalysis {
   // start the main program
   def main(args: Array[String]): Unit = {
      
-	        def distance(lat1: Double,  lon1: Double , lat2: Double, lon2: Double) : String = {
-	        val R = 6371; // km (change this constant to get miles)
-	              val dLat = (lat2-lat1) * Math.PI / 180;
-	              val dLon = (lon2-lon1) * Math.PI / 180;
-	              val a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-	                      Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
-		                    Math.sin(dLon/2) * Math.sin(dLon/2);
-	              val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	              val d = R * c;
-	                if (d>1) return Math.round(d)+"km";
-	                else if (d<=1) return Math.round(d*1000)+"m";
-	              return d + "m";
-          
-	        } 
+    
+    
+    //  val sc = Config.getSparkContext()
+     // val sqlCtx = Config.getSqlContext()
+     val conf = new SparkConf().setAppName("SS").setMaster("local")
+      val sc = new SparkContext(conf)
+      val sqlCtx = new SQLContext(sc)
+     
+ 
+
+     val business = sc.textFile("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/DS - YELP/yelp_academic_dataset_business.json")
+     val review = sc.textFile("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/DS - YELP/yelp_academic_dataset_review.json")
+     
+     
+       val business_DF = sqlCtx.read.json("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/DS - YELP/yelp_academic_dataset_business.json").select("business_id", "state", "city", "name", "longitude", "latitude")
+	    
+	     val review_DF = sqlCtx.read.json("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/TEST/review.json").select("business_id", "text")
+	     
+        val joinedDF = business_DF.join(review_DF, business_DF("business_id") === review_DF("business_id"), "inner")
+        
+        print(joinedDF.show())
+
+	       // val Cbusiness = sqlCtx.read.json("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/TEST/abc.json")
+     
+     import com.typesafe.config.ConfigFactory
+	        //val strReview = ConfigFactory.load("/src/main/scala/com/edu/neu/coe/resources/application.conf").getString("my.secret.value")
+	      //   val strReview = ConfigFactory.load().getString("my.secret.value")
+	       
+	       // print(strReview)
+	        
+	        
         
 	   val wordsBag = List("food","hoagie","burger","patty", "ingredient", "service", "place","veggie", "wing", "area", "dining",
-        "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak");
+        "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak")
   
 	        
 	   for(abc <- wordsBag){
 	    val  a = "http://thesaurus.altervista.org/thesaurus/v1?word="+abc+"&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
       val result = scala.io.Source.fromURL(a).mkString
       import scala.util.parsing.json._
-     // println(result)
+      //println(result)
 	    val b = JSON.parseFull(result)
 	    b match {
          case Some(e) => //println(e) // => Map(name -> Naoki, lang -> List(Java, Scala))
@@ -65,7 +81,7 @@ case class Certificate(certType: String, certFile: CertFile)
   
    val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
       val result = scala.io.Source.fromURL(a).mkString
-      print(result)
+    print(result)
 	   print("\n")
   val b = parse(result)
   print("\n")
@@ -73,10 +89,11 @@ case class Certificate(certType: String, certFile: CertFile)
   val c = b\"response"
 	    for(
 	      cc <- c.children){
-	      print(cc)
+	   //   print(cc)
 	    }
   
-    
+  ///  val df = sqlContext.read.json(result)
+   // df.show
 	  //  val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
 	   // val ids = a.map(_("Locations")("list").map(_("id"))).getOrElse(List())
 	   
