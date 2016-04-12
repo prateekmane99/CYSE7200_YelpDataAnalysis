@@ -133,5 +133,6 @@
 	<classpathentry kind="lib" path="/Users/Prateek/.ivy2/cache/org.apache.parquet/parquet-hadoop/jars/parquet-hadoop-1.7.0.jar"/>
 	<classpathentry kind="lib" path="/Users/Prateek/.ivy2/cache/org.codehaus.janino/janino/jars/janino-2.7.8.jar"/>
 	<classpathentry kind="lib" path="/Users/Prateek/.ivy2/cache/org.codehaus.janino/commons-compiler/jars/commons-compiler-2.7.8.jar"/>
+	<classpathentry kind="lib" path="/Users/Prateek/Downloads/stanford-corenlp-full-2015-12-09/stanford-corenlp-3.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

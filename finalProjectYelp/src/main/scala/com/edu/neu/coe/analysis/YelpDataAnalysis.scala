@@ -32,8 +32,13 @@ object YelpDataAnalysis {
 	     
         val joinedDF = business_DF.join(review_DF, business_DF("business_id") === review_DF("business_id"), "inner")
         
-        print(joinedDF.show())
+         val abc = joinedDF.rdd
+         
+        val cd =  abc.map { x => (x.getString(0), x.getString(1), x.getString(2), x.getString(3), x.getString(4), x.getString(5), x.getString(7)) }
+      // print(cd.collect())
 
+       
+        
 	       // val Cbusiness = sqlCtx.read.json("/Users/Prateek/Documents/Spring 2016/Scala/Project/YELP/yelp/TEST/abc.json")
      
      import com.typesafe.config.ConfigFactory

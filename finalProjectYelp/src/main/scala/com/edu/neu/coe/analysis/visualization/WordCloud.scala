@@ -9,10 +9,13 @@ import wordcloud.font.scale.SqrtFontScalar
 import wordcloud.nlp.FrequencyAnalizer
 import com.twitter.chill.Base64.InputStream
 import java.util.Properties
+import java.net.URL
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
 import edu.stanford.nlp.ling.CoreAnnotations
 import edu.stanford.nlp.pipeline.Annotation
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations
 import edu.stanford.nlp.trees.Tree
 import edu.stanford.nlp.util.CoreMap
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -30,25 +33,27 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 object WordCloud {
  
-  def getWordCloud() = {
+  def getWordCloud(path: String) = {
 val frequencyAnalizer = new FrequencyAnalizer()
 frequencyAnalizer.setWordFrequencesToReturn(750)
 //val wordFrequencies  = frequencyAnalizer.load(aaa.getInputStream("/Users/Prateek/Documents/Data Analytics/Big Data/Spark/What is Spark"))
-val wordCloud = new PolarWordCloud(600, 600, CollisionMode.PIXEL_PERFECT, PolarBlendMode.BLUR)
+ // or
+  val wordFrequencies = frequencyAnalizer.load(new URL(path))
+  val wordCloud = new PolarWordCloud(600, 600, CollisionMode.PIXEL_PERFECT, PolarBlendMode.BLUR)
 wordCloud.setPadding(2)
 wordCloud.setBackground(new CircleBackground(300))
 wordCloud.setFontScalar(new SqrtFontScalar(10, 40))
-//wordCloud.build(wordFrequencies)
+wordCloud.build(wordFrequencies)
 
 //val baos = new ByteArrayOutputStream()
 //ImageIO.write(wordCloud.getBufferedImage(), "png", baos)
 //val image = new String(Base64.encodeBase64(baos.toByteArray()))
 
-wordCloud.writeToFile("/Users/Prateek/Documents/Data Analytics/Sparkwhale_wordcloud_small.png");
+wordCloud.writeToFile("/Users/Prateek/Documents/Data Analytics/abc.png");
   }
 
   
-      def getDistance(lat1: Double,  lon1: Double , lat2: Double, lon2: Double) : String = {
+      def getDistance(lat1: Double,  lon1: Double , lat2: Double, lon2: Double) : Double = {
 	        val R = 3959  //6371; // km (change this constant to get miles)
 	              val dLat = (lat2-lat1) * Math.PI / 180;
 	              val dLon = (lon2-lon1) * Math.PI / 180;
@@ -57,20 +62,20 @@ wordCloud.writeToFile("/Users/Prateek/Documents/Data Analytics/Sparkwhale_wordcl
 		                    Math.sin(dLon/2) * Math.sin(dLon/2);
 	              val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	              val d = R * c;
-	                if (d>1) return Math.round(d)+"miles";
-	                else if (d<=1) return Math.round(d*1000)+"m";
-	              return d + "m";
+	                if (d>1) return Math.round(d);
+	                else if (d<=1) return Math.round(d*1000);
+	              return d;
 	        } 
       
       
       
       def getSentiment(strReview: String) = {
-            val nlpProps =  {
+           
                               val props = new Properties()
                               props.setProperty("annotators", "tokenize, ssplit, pos, lemma, parse, sentiment")        
-                            }
+      
 
-             val pipeline = new StanfordCoreNLP(nlpProps)
+             val pipeline = new StanfordCoreNLP(props)
              val annotation = pipeline.process(strReview)
              var sentiments: ListBuffer[Double] = ListBuffer()
              var sizes: ListBuffer[Int] = ListBuffer()
@@ -79,12 +84,13 @@ wordCloud.writeToFile("/Users/Prateek/Documents/Data Analytics/Sparkwhale_wordcl
               val tree = sentence.get(classOf[SentimentCoreAnnotations.SentimentAnnotatedTree])
               val sentiment = RNNCoreAnnotations.getPredictedClass(tree)
               
-             sentiment match {
-                case a if a > 0.0 && a < 2.5 => (strReview, "NEGATIVE")
-                case a if a > 2.5 && a < 5.0 => (strReview,"POSITIVE")
+            val a =  sentiment match {
+                case a if a > 0.0 && a < 1.6 => (strReview, "NEGATIVE")
+                case a if a > 1.6 && a < 2.0 => (strReview,"NEUTRAL")
+                case a if a > 2.0 && a < 5.0 => (strReview,"POSITIVE")
                 case a if a <= 0.0 || a > 5.0 => (strReview,"NOT_UNDERSTOOD")
-              }
+                             }
   
-      }
-             }
+             }         
+     }
 }
