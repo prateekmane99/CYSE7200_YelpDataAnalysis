@@ -1,10 +1,14 @@
 package com.edu.neu.coe.analysis
 
+
 import org.apache.log4j.{ Logger }
 import org.apache.spark.{ SparkConf, SparkContext }
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.SQLContext
 import com.edu.neu.coe.configuration.Config
+	 import play.api.libs.functional.syntax._
+   import play.api.libs.json._
+   
 
 object YelpDataAnalysis {
   //@transient lazy val logger = Logger.getLogger(getClass.getName)
@@ -53,50 +57,49 @@ object YelpDataAnalysis {
         "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak")
   
 	        
-	   for(abc <- wordsBag){
-	    val  a = "http://thesaurus.altervista.org/thesaurus/v1?word="+abc+"&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
+    val finalWordBag = List();   
+	  // for(abc <- wordsBag){
+	    val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=food&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
       val result = scala.io.Source.fromURL(a).mkString
-      import scala.util.parsing.json._
-      //println(result)
-	    val b = JSON.parseFull(result)
-	    b match {
-         case Some(e) => //println(e) // => Map(name -> Naoki, lang -> List(Java, Scala))
-          case None => println("Failed.")
-            }
-	   }
-    
-	   case class CertFile(name: String, path: String, extension: String)
-
-case class Certificate(certType: String, certFile: CertFile)
-
-
-
- import scala.util.parsing.json._
- 
-   val json =
-    """{ "certificates": [{"type": "abc","file": {"name": "xyz","path":"/usr/local","extension": "csv"}} ,  {"type": "xyz","file": {"name": "xyz","path": "/usr/local","extension": "csv"}} , {"type": "nmo","file": {"name": "xyz","path": "/usr/local","extension": "csv"}}] }"""
-
-  val jsonValue = JSON.parseFull(json)
-
- // val list = (jsonValue \ "certificates").as[List[Certificate]]
+        val bf = Json.parse(result)
+        //print(bf)
+        print("\n")
+         val cf = bf \\ "list"
+           var fv = List()
+         for(c <- cf){
+             if(c.\("category").toString() == """"(noun)"""")
+               {
+                  val a = c.\("synonyms").toString()
+                  // print(a)
+                   print("\n")
+                   val b = a.replace("|", ",")
+                 
+                   val rt = b.replaceAll("\"", "")
+                     print("RT" + rt)
+                   print("\n")
+                   val regex = (",").r
+                   val gg = (for(m <- regex findAllIn b matchData) yield (m.start)).toList
+                  // print(gg)
+                   print("\n")
+                  val ff = "\""
+                
+                   for(i <- 0 to (rt.split(',').length) -1)
+                   {
+                        print(ff + rt.split(',').apply(i).concat(ff) + ",")
+                        fv.::(ff + rt.split(',').apply(i).concat(ff) + ",")
+                       
+                   }
+                  
+                  rt.
+               }
+           }
   
-  import org.json4s._
-  import org.json4s.JsonDSL._
-  import org.json4s.jackson.JsonMethods._
-  
-   val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"
-      val result = scala.io.Source.fromURL(a).mkString
-    print(result)
-	   print("\n")
-  val b = parse(result)
-  print("\n")
-	     
-  val c = b\"response"
-	    for(
-	      cc <- c.children){
-	   //   print(cc)
-	    }
-  
+	 // }
+	  
+	  
+           print(fv)
+	
+     
   ///  val df = sqlContext.read.json(result)
    // df.show
 	  //  val  a = "http://thesaurus.altervista.org/thesaurus/v1?word=chicken&key=Zpaz3EmJcfOOA5vVTOWN&language=en_US&output=json"

@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   //	"edu.stanford.nlp" % "stanford-parser" % "3.4",
   //	"edu.stanford.nlp" % "stanford-pos-tagger" % "3.4",
      "com.kennycason" % "kumo" % "1.3",
-     "org.skife.com.typesafe.config" % "typesafe-config" % "0.3.0"
+     "org.skife.com.typesafe.config" % "typesafe-config" % "0.3.0",
+    "com.typesafe.play" %% "play-json" % "2.4.0-M3"
      
 )

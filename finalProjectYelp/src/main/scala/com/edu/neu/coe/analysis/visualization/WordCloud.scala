@@ -85,9 +85,9 @@ wordCloud.writeToFile("/Users/Prateek/Documents/Data Analytics/abc.png");
               val sentiment = RNNCoreAnnotations.getPredictedClass(tree)
               
             val a =  sentiment match {
-                case a if a > 0.0 && a < 1.6 => (strReview, "NEGATIVE")
-                case a if a > 1.6 && a < 2.0 => (strReview,"NEUTRAL")
-                case a if a > 2.0 && a < 5.0 => (strReview,"POSITIVE")
+                case a if a > 0.0 && a <= 1.6 => (strReview, "NEGATIVE")
+                case a if a > 1.6 && a <= 2.0 => (strReview,"NEUTRAL")
+                case a if a > 2.0 && a <= 5.0 => (strReview,"POSITIVE")
                 case a if a <= 0.0 || a > 5.0 => (strReview,"NOT_UNDERSTOOD")
                              }
   
