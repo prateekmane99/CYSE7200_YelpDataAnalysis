@@ -1,6 +1,7 @@
 package com.edu.neu.coe.analysis.clean
 
 import com.edu.neu.coe.analysis.clean._
+import com.edu.neu.coe.analysis.model.WordsBag
 import org.apache.spark.rdd.RDD
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
@@ -14,11 +15,12 @@ object DataParsingUtil {
   val sc = DataCleansingUtil.getSparkContext
   val mx = new MaxentTagger("/Users/YuanHank/Downloads/stanford-postagger-2015-12-09/models/english-bidirectional-distsim.tagger");
 
-  val wordsBag = List("food", "hoagie", "burger", "patty", "ingredient", "service", "place", "veggie", "wing", "area", "dining",
-    "cajun", "sauce", "bear", "fish", "sandwich", "bread", "soup", "chicken", "salad", "steak");
+  val wordsBag = WordsBag.getWordsBag
   
   def getAll = {
-    r.map { x => x.toSeq.dropRight(1) }
+    val res = r.map { x => x.toSeq.dropRight(1) }
+    println("getting all business in ROW --- DataParsingUtil def getAll")
+    res
   }
   def getReviews: RDD[Option[String]] = {
     getAll.map { x => Option(x(8).toString()) }
@@ -26,6 +28,8 @@ object DataParsingUtil {
   def getReviewsWithBusinessId: RDD[(String, Option[String])] = {
     getAll.map { x => (x(0).toString(), Option(x(8).toString())) }
   }
+
+  
 
   //  def dealWithReviews: RDD[(String,String)]={
   //    getReviewsWithBusinessId.map { x => (x._1,x._2)}
@@ -72,18 +76,20 @@ object DataParsingUtil {
 
   def findAdjOption(f: Array[(String, String)], w: Int) = {
     //follow with VB
-    if (f(w + 1)._2.startsWith("VB")) f.slice(w, f.size).find(p => p._2.startsWith("JJ"))
+    if (w<f.size-1 && f(w+1)._2.startsWith("VB")) f.slice(w, f.size).find(p => p._2.startsWith("JJ"))
     else f.slice(0, w).reverse.find(p => p._2.startsWith("JJ"))
   }
 
   def getBigramWithAll = {
-    getAll.map { 
-      x => 
+    val res = getAll.map {
+      x =>
         Option(x.last) match {
           case Some(y) => (x.dropRight(1), extractKeyWords(y.toString().toLowerCase(), wordsBag))
           case None    => (x.dropRight(1), Seq("No Reviews Yet"))
         }
     }
+    println("All bigrams got --- DataParsingUtil def getBigramWithAll")
+    res
   }
   def getBigram = {
     getBigramWithAll.map { x => x._2 }
@@ -91,8 +97,6 @@ object DataParsingUtil {
   def getBigramWithId = {
     getBigramWithAll.map { x => (x._1(0).toString(), x._2) }
   }
-  
-
 
   def main(args: Array[String]): Unit = {
     /*

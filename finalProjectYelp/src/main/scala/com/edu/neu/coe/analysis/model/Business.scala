@@ -15,6 +15,19 @@ class Business(business_id:String,name:String, category:Iterable[String], full_a
   def getLongitude = longitude
   def getBigramsWithSentiment = bigramsWithSentiment
   
+  def getGoodReview = bigramsWithSentiment.filter(p => p._2.equals("POSITIVE"))
+  def getBadReview = bigramsWithSentiment.filter(p => p._2.equals("NEGATIVE"))
+  def getBest = {
+    val hm = scala.collection.mutable.HashMap.empty[String,Int]
+    val s = getGoodReview.map(f => f._1.split(" ")(1))
+    s.foreach { x => 
+//      println("++++++++++++" + x)
+      if(hm.contains(x))  hm.update(x, hm.get(x).getOrElse(0)+1)
+      else  hm.put(x, 0)}
+    if(hm.isEmpty)  "No good reviews yet"
+    else hm.reduceLeft((o,p) => if(o._2>p._2)  o else p)._1
+  }
+  
   def getDistance(bus:Business): Double = {
     val R = 3959 //6371; // km (change this constant to get miles)
     val dLat = (bus.getLatitude - latitude) * Math.PI / 180;
@@ -37,6 +50,7 @@ class Business(business_id:String,name:String, category:Iterable[String], full_a
 //      if(getDistance(bus) <= distance)  getCompetitor(rList, distance, res) :+ bus
 //      else  getCompetitor(rList, distance, res)
 //    }
+//    println("getting competitors --- Business")
     list.filter { x => getDistance(x)<distance }
   }
   
