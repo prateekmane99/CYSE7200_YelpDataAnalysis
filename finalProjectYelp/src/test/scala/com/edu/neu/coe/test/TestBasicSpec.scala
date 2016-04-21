@@ -13,6 +13,7 @@ class TestBasicSpec extends FlatSpec with BeforeAndAfterAll with Matchers {
   val conf = new SparkConf()
     .setMaster(master)
     .setAppName(appName)
+    .set("spark.driver.allowMultipleContexts","true")
 
   override protected def beforeAll(): Unit = {
     super.beforeAll()

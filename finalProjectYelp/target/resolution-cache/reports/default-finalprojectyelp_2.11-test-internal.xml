@@ -7,7 +7,7 @@
 		revision="1.0.0-SNAPSHOT"
 		conf="test-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20160419143013"/>
+		date="20160420154628"/>
 	<dependencies>
 		<module organisation="com.itextpdf.tool" name="xmlworker">
 			<revision name="5.4.4" status="release" pubdate="20130917092342" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.itextpdf.com/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="194">

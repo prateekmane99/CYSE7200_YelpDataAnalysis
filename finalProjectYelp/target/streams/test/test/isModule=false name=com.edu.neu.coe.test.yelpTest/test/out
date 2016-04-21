@@ -1,0 +1,55 @@
+[0m[[0minfo[0m] [0m[32myelpTest:[0m[0m
+[0m[[0minfo[0m] [0m[32mSpark Context[0m[0m
+[0m[[0minfo[0m] [0m[32m- should not be null[0m[0m
+[0m[[0minfo[0m] [0m[32mLoad data[0m[0m
+[0m[[0minfo[0m] [0m[31m- should not be null *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  org.apache.spark.SparkException: Job cancelled because SparkContext was shut down[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.scheduler.DAGScheduler$$anonfun$cleanUpAfterSchedulerStop$1.apply(DAGScheduler.scala:703)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.scheduler.DAGScheduler$$anonfun$cleanUpAfterSchedulerStop$1.apply(DAGScheduler.scala:702)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.mutable.HashSet.foreach(HashSet.scala:78)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.scheduler.DAGScheduler.cleanUpAfterSchedulerStop(DAGScheduler.scala:702)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onStop(DAGScheduler.scala:1514)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.util.EventLoop.stop(EventLoop.scala:84)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.scheduler.DAGScheduler.stop(DAGScheduler.scala:1438)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.SparkContext$$anonfun$stop$7.apply$mcV$sp(SparkContext.scala:1724)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.util.Utils$.tryLogNonFatalError(Utils.scala:1185)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.SparkContext.stop(SparkContext.scala:1723)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[32mExtract Key Words[0m[0m
+[0m[[0minfo[0m] [0m[31mException encountered when attempting to run a suite with class name: com.edu.neu.coe.test.yelpTest *** ABORTED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.lang.ExceptionInInitializerError:[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply$mcV$sp(yelpTest.scala:17)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$class.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:20)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.FlatSpecLike$$anon$1.apply(FlatSpecLike.scala:1647)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Suite$class.withFixture(Suite.scala:1122)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[31m  Cause: edu.stanford.nlp.io.RuntimeIOException: Unrecoverable error while loading a tagger model[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.readModelAndInit(MaxentTagger.java:769)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.<init>(MaxentTagger.java:297)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.<init>(MaxentTagger.java:262)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.analysis.clean.DataParsingUtil$.<init>(DataParsingUtil.scala:18)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.analysis.clean.DataParsingUtil$.<clinit>(DataParsingUtil.scala)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply$mcV$sp(yelpTest.scala:17)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$class.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[31m  Cause: java.io.IOException: Unable to resolve ""/Users/YuanHank/Downloads/stanford-postagger-2015-12-09/models/english-bidirectional-distsim.tagger"" as either class path, filename or URL[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.io.IOUtils.getInputStreamFromURLOrClasspathOrFileSystem(IOUtils.java:463)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.readModelAndInit(MaxentTagger.java:764)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.<init>(MaxentTagger.java:297)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at edu.stanford.nlp.tagger.maxent.MaxentTagger.<init>(MaxentTagger.java:262)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.analysis.clean.DataParsingUtil$.<init>(DataParsingUtil.scala:18)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.analysis.clean.DataParsingUtil$.<clinit>(DataParsingUtil.scala)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply$mcV$sp(yelpTest.scala:17)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at com.edu.neu.coe.test.yelpTest$$anonfun$3.apply(yelpTest.scala:16)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
+[0m[[0minfo[0m] [0m[31m  ...[0m[0m

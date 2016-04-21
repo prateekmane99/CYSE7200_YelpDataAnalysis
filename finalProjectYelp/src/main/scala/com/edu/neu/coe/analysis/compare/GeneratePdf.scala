@@ -16,15 +16,18 @@ import com.itextpdf.text.pdf.PdfWriter;
 object GeneratePdf {
   val rdd = {
     val r = Compare.getRDD
-    println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n"+r.isEmpty())
+    println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n"+r.count())
     r
   }
 
-  def mapRDD = rdd.foreach { x => //TO loop each row of RDD
-    gennerate(x)
+  def mapRDD(filePath: String) = {
+    println("generating pdf files")
+    rdd.foreach { x => //TO loop each row of RDD
+    gennerate(x, filePath)
+    }
   }
   
-  def gennerate(x:Compare.Comparison) = {
+  def gennerate(x:Compare.Comparison, filePath: String) = {
     val htmlReport =
 
   <html>
@@ -48,12 +51,12 @@ object GeneratePdf {
       </html>
 
     val document = new Document(PageSize.A4)
-    println("trying to transfer it to pdf")
+//    println("trying to transfer it to pdf")
     val t = try {
       val pdfWriter = PdfWriter.getInstance(
         document,
-        new FileOutputStream("/Users/YuanHank/Desktop/final/Compare/" + x.bid + ".pdf"))
-      println("generating pdf")
+        new FileOutputStream(filePath +"/" + x.bid + ".pdf"))
+//      println("generating pdf")
       document.open()
       val worker = XMLWorkerHelper.getInstance()
       worker.parseXHtml(

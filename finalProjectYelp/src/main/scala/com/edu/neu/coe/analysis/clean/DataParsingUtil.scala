@@ -4,6 +4,7 @@ import com.edu.neu.coe.analysis.clean._
 import com.edu.neu.coe.analysis.model.WordsBag
 import org.apache.spark.rdd.RDD
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import com.edu.neu.coe.analysis.YelpDataAnalysis
 
 /*
  * "business_id", "name", "categories", "full_address", "city", "state", "latitude", "longitude"
@@ -13,6 +14,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 object DataParsingUtil {
   val r = DataCleansingUtil.cleanData
   val sc = DataCleansingUtil.getSparkContext
+  val loc = YelpDataAnalysis.getPosTaggerModelLocation
   val mx = new MaxentTagger("/Users/YuanHank/Downloads/stanford-postagger-2015-12-09/models/english-bidirectional-distsim.tagger");
 
   val wordsBag = WordsBag.getWordsBag
@@ -80,6 +82,7 @@ object DataParsingUtil {
     else f.slice(0, w).reverse.find(p => p._2.startsWith("JJ"))
   }
 
+  //Transfer text reviews to bigrams
   def getBigramWithAll = {
     val res = getAll.map {
       x =>
@@ -96,27 +99,6 @@ object DataParsingUtil {
   }
   def getBigramWithId = {
     getBigramWithAll.map { x => (x._1(0).toString(), x._2) }
-  }
-
-  def main(args: Array[String]): Unit = {
-    /*
-     * 1. analyze r Row by Row using Stanford NLP
-     * 2. for each Row, find adj and noun, return them as List(business_id -> adj+n)
-     * 3. Combine all the Lists, return it as the result
-     */
-    //     val res = getReviews.map {f => f match{
-    //         case Some(x) => extractKeyWords(x.toLowerCase(), wordsBag)
-    //         case None => Nil
-    //       }
-    //     }
-    val ress = getReviewsWithBusinessId.map {
-      f =>
-        f match {
-          case (x, Some(y)) => extractKeyWords(y.toLowerCase(), wordsBag).map { str => (x + " => " + str) }
-          case (x, None)    => Seq(x + " => " + "No Reviews Yet")
-        }
-    }
-    for (r <- ress; w <- r) println(w)
   }
 }
 

@@ -9,7 +9,7 @@ object Compare {
   import sc.implicits._
   val rdd = WordCloud.getRddBusiness
   //group all businesses, (state, Business)
-  val sam = { println("samsamsamsmamasmsmmamasmmsamasmsam"); rdd.groupBy(f => f.getState) }
+  val sam = rdd.groupBy(f => f.getState) 
   val dean = sam.collect()
 
   case class ComparisonI(bid: String, businessName: String, goodReviewNum: Int, 
@@ -24,7 +24,7 @@ object Compare {
     def goodReviewNum = b.getGoodReview.size
     def badReviewNum = b.getBadReview.size
     def bestReview = b.getBest
-    def competetors = compe.map { x => (x.getBusiness_id, b.getDistance(x), x.getGoodReview, x.getBadReview, x.getBest) }
+    def competetors = compe.map { x => (x.getName, b.getDistance(x), x.getGoodReview, x.getBadReview, x.getBest) }
     
     def tStr = ComparisonI(bid, businessName, goodReviewNum, badReviewNum, bestReview, competetors)
   }
@@ -51,6 +51,7 @@ object Compare {
    * Use this business and its competitors to construct a Comparison Object
    */
   def getRDD = {
+    println("++++++++++++++"+rdd.count())
     rdd.map { x =>
       val ss = dean.filter(a => a._1.equals(x.getState)).map(b => b._2)
       val seq = {
@@ -58,7 +59,7 @@ object Compare {
       }
       //      println("seqqqqqqqqqqqqqqqqqq:\n" + seq)
       //      val seq = sam.first()._2.toSeq
-      val e = new Comparison(x, x.getCompetitor(seq, 10, Seq()))
+      val e = new Comparison(x, x.getCompetitor(seq, 100, Seq()))
       e
     }
   }

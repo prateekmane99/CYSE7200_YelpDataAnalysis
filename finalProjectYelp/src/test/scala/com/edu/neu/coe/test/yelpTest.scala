@@ -9,7 +9,7 @@ class yelpTest extends TestBasicSpec with GivenWhenThen with Matchers {
   }
   
   "Load data" should "not be null" in {
-    val rawTestData = DataCleansingUtil.data("/Users/YuanHank/Downloads/test.json")
+    val rawTestData = DataCleansingUtil.data
     rawTestData.collect() should have length(1)
   }
   
